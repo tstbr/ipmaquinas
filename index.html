@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12304a">
+<title>Checklist Diário de Inspeção — Máquinas e Equipamentos</title>
+<style>
+  :root{--navy:#12304a;--blue:#175a84;--blue-soft:#eaf4fb;--ink:#1b2935;--muted:#647484;--line:#d8e0e7;--bg:#f3f6f9;--white:#fff;--red:#b42318;--red-dark:#821b13;--red-bg:#fff0ef;--green:#1d6b43;--green-bg:#eaf8ef;--amber:#8a4b08;--amber-bg:#fff6df;--shadow:0 8px 28px rgba(18,48,74,.08)}
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .topbar{background:linear-gradient(125deg,#102b42,#175a84);color:#fff;padding:26px 20px 24px}.topbar-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:16px}.logo{width:52px;height:52px;flex:none;border-radius:14px;background:#ffffff20;display:grid;place-items:center;font-size:27px;border:1px solid #ffffff35}.topbar h1{font-size:clamp(20px,3vw,29px);line-height:1.18;margin:0 0 6px;font-weight:800;letter-spacing:.1px}.topbar p{margin:0;color:#e2edf4}.daily-tag{display:inline-block;margin-top:10px;background:#fff;color:var(--navy);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.7px}
+  .container{max-width:1180px;margin:24px auto 56px;padding:0 16px}.banner{background:#fff6df;border:1px solid #f1d58a;color:#71400d;border-radius:12px;padding:13px 15px;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start}.banner strong{color:#6b3103}.panel{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:20px;margin-bottom:18px;box-shadow:var(--shadow)}.section-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}.section-number{width:34px;height:34px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800;flex:none}.section-head h2{font-size:18px;margin:0 0 3px;color:var(--navy)}.section-head p{margin:0;color:var(--muted);font-size:13px}.field-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.field{min-width:0}.field label,.sub-label{display:block;font-size:13px;font-weight:700;margin:0 0 6px;color:#344657}.required{color:var(--red)}input[type=text],input[type=tel],input[type=date],input[type=time],input[type=datetime-local],select,textarea{width:100%;border:1px solid #cbd5df;border-radius:9px;background:#fff;color:var(--ink);padding:10px 11px;min-height:42px;font:inherit;outline:none;transition:border-color .15s,box-shadow .15s}textarea{resize:vertical;min-height:100px}input:focus,select:focus,textarea:focus{border-color:#3787b9;box-shadow:0 0 0 3px #dff1ff}.field-help{color:var(--muted);font-size:12px;margin-top:5px}
+  .summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:15px}.summary-box{border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:#fbfdff}.summary-box span{display:block;color:var(--muted);font-size:12px;font-weight:650}.summary-box strong{font-size:23px;line-height:1.3;color:var(--navy)}.summary-box.danger strong{color:var(--red)}
+  .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.check-item{border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0;background:#fff;transition:border-color .15s,background .15s}.check-item.nonconform{border:2px solid var(--red);background:#fff9f8;box-shadow:0 0 0 2px #b423180c}.item-title{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px}.item-num{font-size:12px;line-height:1.6;color:#567084;font-weight:800;min-width:22px}.item-title strong{font-size:14px;line-height:1.35;color:#23394a}.item-sub{font-size:12px;color:var(--muted);margin:3px 0 10px}.status-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;align-items:end}.status-row label{display:block;font-size:12px;font-weight:750;margin-bottom:5px}.status-select.conforme{border-color:#81c99c;background:var(--green-bg);color:#145b35;font-weight:750}.status-select.nao-conforme{border-color:#e5938c;background:var(--red-bg);color:var(--red-dark);font-weight:800}.risk-alert{margin-top:12px;background:var(--red-bg);border:1px solid #e5a09a;border-left:5px solid var(--red);padding:12px;border-radius:9px;color:var(--red-dark)}.risk-alert .risk-label{font-size:13px;letter-spacing:.2px;display:flex;align-items:center;gap:8px;font-weight:900}.risk-alert .risk-copy{font-size:12px;margin-top:4px;color:#78221b}.photo-area{margin-top:11px;padding-top:11px;border-top:1px dashed #d9a09c}.photo-area label{display:block;font-size:12px;font-weight:800;margin-bottom:6px;color:#6e221b}.photo-area input[type=file]{display:block;width:100%;font-size:12px;color:#5f6a75}.photo-note{font-size:11px;color:#7a4a45;margin-top:5px}.preview{margin-top:10px;position:relative;display:inline-block;max-width:100%}.preview img{display:block;max-width:100%;max-height:240px;border:1px solid #ddb7b3;border-radius:8px;object-fit:contain;background:#fff}.clear-photo{margin-top:7px;border:1px solid #cf8a84;background:#fff;color:#9a241d;border-radius:7px;padding:5px 9px;font-weight:700;font-size:12px;cursor:pointer}.pending{background:#f3f6f9;color:#687b8b}
+  .guidance-grid{display:grid;grid-template-columns:1fr;gap:14px}.signature-wrap{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fbfdff}.signature-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}.signature-meta strong{font-size:13px}.signature-meta span{font-size:12px;color:var(--muted)}canvas#signatureCanvas{width:100%;height:180px;display:block;background:white;border:1px dashed #aab9c7;border-radius:8px;touch-action:none;cursor:crosshair}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:9px;padding:11px 15px;min-height:43px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;display:inline-flex;justify-content:center;align-items:center;gap:7px;transition:filter .15s,transform .15s}.btn:hover{filter:brightness(.97)}.btn:active{transform:translateY(1px)}.btn-primary{background:var(--navy);color:#fff}.btn-pdf{background:#17653e;color:#fff}.btn-secondary{background:#e7edf2;color:#304555}.btn-danger{background:#fff0ef;color:var(--red);border:1px solid #e9b3ae}.btn-small{padding:7px 10px;min-height:34px;font-size:12px}.message{display:none;margin-top:12px;border-radius:9px;padding:11px 13px;font-size:13px;font-weight:650}.message.show{display:block}.message.success{background:var(--green-bg);border:1px solid #a3d5b5;color:#175b35}.message.error{background:var(--red-bg);border:1px solid #e8aba5;color:#8c2118}.message.info{background:var(--blue-soft);border:1px solid #b5d8ec;color:#174f73}
+  .history-list{display:grid;gap:10px}.history-empty{border:1px dashed #c4d0db;border-radius:11px;padding:22px;color:var(--muted);text-align:center}.history-card{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.history-main{min-width:180px;flex:1}.history-main strong{display:block;color:var(--navy);font-size:14px}.history-main p{margin:4px 0 0;font-size:12px;color:var(--muted)}.history-stats{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.pill{font-size:11px;border-radius:99px;padding:3px 8px;font-weight:800;background:#edf1f5;color:#536675}.pill.red{background:var(--red-bg);color:var(--red)}.pill.green{background:var(--green-bg);color:var(--green)}.history-actions{display:flex;gap:7px;flex-wrap:wrap}.footer-note{text-align:center;color:#687b8b;font-size:12px;margin:22px 0 0}.hidden{display:none!important}
+  #printReport{display:none}.print-header{border-bottom:3px solid #12304a;padding-bottom:12px;margin-bottom:16px}.print-header h1{font-size:21px;color:#12304a;margin:0 0 4px}.print-header p{margin:0;color:#506575;font-size:11px}.print-section{margin:15px 0}.print-section h2{font-size:14px;text-transform:uppercase;color:#12304a;border-bottom:1px solid #bac9d4;padding-bottom:5px;margin:0 0 8px}.print-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 14px}.print-meta div{font-size:11px;overflow-wrap:anywhere}.print-meta strong{display:block;color:#536675;font-size:9px;text-transform:uppercase;letter-spacing:.35px}.print-table{width:100%;border-collapse:collapse;font-size:10px}.print-table th,.print-table td{border:1px solid #ccd5dd;padding:6px;vertical-align:top;text-align:left}.print-table th{background:#edf3f7;color:#17384f}.print-status{font-weight:800}.print-status.bad{color:#a32119}.print-status.good{color:#17653e}.print-risk{color:#a32119;font-weight:900}.print-photo{max-width:220px;max-height:170px;object-fit:contain;display:block;margin-top:5px;border:1px solid #ddd}.print-signature{max-width:330px;max-height:105px;object-fit:contain;border:1px solid #ccc;background:#fff}.print-guidance{white-space:pre-wrap;font-size:11px}.print-small{font-size:9px;color:#667784}.print-warning{border:1.5px solid #b42318;background:#fff0ef;color:#9a2118;padding:9px;margin-bottom:12px;font-weight:900;font-size:12px}.print-sign-line{border-top:1px solid #333;margin-top:8px;padding-top:4px;font-size:10px}
+  @media(max-width:850px){.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.checklist{grid-template-columns:1fr}}
+  @media(max-width:560px){.topbar{padding:20px 15px}.container{padding:0 10px;margin-top:14px}.panel{padding:15px}.field-grid{grid-template-columns:1fr}.summary{gap:7px}.summary-box{padding:10px}.summary-box strong{font-size:20px}.status-row{grid-template-columns:1fr}.history-card{align-items:flex-start}.history-actions{width:100%}.history-actions .btn{flex:1}}
+  @page{size:A4;margin:12mm}
+  @media print{body{background:white!important;color:#111!important;font-family:Arial,sans-serif!important}.topbar,.container,#app{display:none!important}#printReport{display:block!important;position:static!important;width:100%!important;color:#111!important;font-size:10px!important}.print-section{break-inside:auto}.print-table tr{break-inside:avoid}.print-photo,.print-signature{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-warning,.print-table th{print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-foot{border-top:1px solid #c9d2da;margin-top:16px;padding-top:7px;font-size:9px;color:#647484}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo" aria-hidden="true">✓</div>
+    <div>
+      <h1>Checklist Diário de Inspeção</h1>
+      <p>Máquinas e Equipamentos · Verificação antes do início da operação</p>
+      <span class="daily-tag">INSPEÇÃO DIÁRIA</span>
+    </div>
+  </div>
+</header>
+<main class="container" id="app">
+  <div class="banner"><span aria-hidden="true">⚠️</span><div><strong>Atenção à segurança:</strong> qualquer item marcado como <strong>Não conforme</strong> exibirá um alerta vermelho e um campo para anexar foto. Se houver condição que possa comprometer a segurança, interrompa a operação e siga os procedimentos de bloqueio/comunicação da empresa. A classificação efetiva de risco deve ser confirmada por pessoa tecnicamente competente.</div></div>
+  <section class="panel">
+    <div class="section-head"><div class="section-number">1</div><div><h2>Identificação da inspeção</h2><p>Preencha os dados do operador, da máquina e da inspeção diária.</p></div></div>
+    <div class="field-grid">
+      <div class="field"><label for="operator">Nome do operador <span class="required">*</span></label><input id="operator" type="text" autocomplete="name" placeholder="Nome completo" required></div>
+      <div class="field"><label for="contact">Contato do operador</label><input id="contact" type="tel" autocomplete="tel" placeholder="Telefone / ramal"></div>
+      <div class="field"><label for="machineType">Tipo de máquina <span class="required">*</span></label><input id="machineType" type="text" placeholder="Ex.: empilhadeira, escavadeira" required></div>
+      <div class="field"><label for="machineId">Identificação / patrimônio</label><input id="machineId" type="text" placeholder="Modelo, placa ou nº de patrimônio"></div>
+      <div class="field"><label for="inspectionDate">Data <span class="required">*</span></label><input id="inspectionDate" type="date" required></div>
+      <div class="field"><label for="inspectionTime">Hora <span class="required">*</span></label><input id="inspectionTime" type="time" required></div>
+      <div class="field"><label for="location">Local <span class="required">*</span></label><input id="location" type="text" placeholder="Área, obra, setor ou unidade" required></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-head"><div class="section-number">2</div><div><h2>Checklist antes da operação</h2><p>Selecione uma condição para cada item. Para “Não conforme”, registre a evidência fotográfica quando possível.</p></div></div>
+    <div class="summary" aria-live="polite">
+      <div class="summary-box"><span>Itens verificados</span><strong id="countChecked">0 / 22</strong></div>
+      <div class="summary-box"><span>Conformes</span><strong id="countConform">0</strong></div>
+      <div class="summary-box danger"><span>Não conformes / alertas</span><strong id="countNonconform">0</strong></div>
+    </div>
+    <div id="checklist" class="checklist"></div>
+    <div id="overallRisk" class="risk-alert hidden" role="alert" aria-live="assertive"><div class="risk-label"><span>⛔</span> RISCO GRAVE E IMINENTE — ALERTA DE SEGURANÇA</div><div class="risk-copy">Foi identificada uma ou mais condições “Não conforme”. Não inicie ou continue a operação se houver risco à segurança. Sinalize, comunique o responsável e aplique o procedimento seguro da organização antes de liberar o equipamento.</div></div>
+  </section>
+
+  <section class="panel">
+    <div class="section-head"><div class="section-number">3</div><div><h2>Orientação técnica e assinatura</h2><p>Registre orientações, anormalidades adicionais e a assinatura do operador/responsável pela inspeção.</p></div></div>
+    <div class="guidance-grid">
+      <div class="field"><label for="technicalGuidance">Orientação técnica / observações / providências</label><textarea id="technicalGuidance" placeholder="Descreva as orientações, ações corretivas, comunicação realizada ou outras observações..."></textarea></div>
+      <div class="signature-wrap">
+        <div class="signature-meta"><strong>Assinatura manual (dedo ou mouse)</strong><span>Assine dentro do quadro</span></div>
+        <canvas id="signatureCanvas" aria-label="Área para assinatura manual"></canvas>
+        <div class="actions" style="margin-top:9px"><button class="btn btn-secondary btn-small" id="clearSignature" type="button">↺ Limpar assinatura</button></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="saveRecord" type="button">▣ Salvar no histórico</button>
+      <button class="btn btn-pdf" id="makePdf" type="button">▤ Gerar PDF / Imprimir</button>
+      <button class="btn btn-secondary" id="newInspection" type="button">＋ Nova inspeção</button>
+    </div>
+    <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="panel" id="historySection">
+    <div class="section-head"><div class="section-number">4</div><div><h2>Histórico de inspeções</h2><p>Os registros são armazenados neste navegador e neste dispositivo. Exporte os relatórios em PDF para arquivo externo.</p></div></div>
+    <div class="actions" style="margin-top:0;margin-bottom:14px"><button class="btn btn-danger btn-small" id="deleteAllHistory" type="button">🗑 Excluir todo o histórico</button></div>
+    <div id="historyList" class="history-list"><div class="history-empty">Carregando histórico...</div></div>
+  </section>
+  <p class="footer-note">Formulário de apoio operacional. Não substitui manual do fabricante, avaliação técnica, procedimentos internos ou a verificação integral dos requisitos aplicáveis da NR-12.</p>
+</main>
+<div id="printReport" aria-label="Relatório para impressão"></div>
+<script>
+'use strict';
+const CHECKS = [
+  {id:'engineOil', label:'Nível do óleo do motor'},
+  {id:'hydraulicOil', label:'Nível do óleo hidráulico'},
+  {id:'coolant', label:'Líquido de arrefecimento'},
+  {id:'fuel', label:'Combustível'},
+  {id:'leaks', label:'Vazamentos', special:'leaks', hint:'Selecione “Com vazamento” se houver qualquer vazamento identificado.'},
+  {id:'hydraulicHoses', label:'Estado das mangueiras hidráulicas'},
+  {id:'hydraulicCylinders', label:'Estado dos cilindros hidráulicos'},
+  {id:'belts', label:'Correias'},
+  {id:'electrical', label:'Sistema elétrico'},
+  {id:'battery', label:'Bateria'},
+  {id:'dashboard', label:'Painel de instrumentos'},
+  {id:'lighting', label:'Iluminação'},
+  {id:'reverseAlarm', label:'Alarme de ré', hint:'Confirme o acionamento e o sinal sonoro/visual conforme o equipamento.'},
+  {id:'horn', label:'Buzina (sinal sonoro)', hint:'Confirme se o sinal sonoro funciona adequadamente.'},
+  {id:'seatbelt', label:'Cinto de segurança'},
+  {id:'mirrors', label:'Espelhos'},
+  {id:'windows', label:'Vidros'},
+  {id:'wipers', label:'Limpadores de para-brisa'},
+  {id:'extinguisher', label:'Extintor de incêndio'},
+  {id:'tiresTracks', label:'Pneus ou esteiras'},
+  {id:'radiator', label:'Limpeza do radiador'},
+  {id:'lubrication', label:'Lubrificação visual'}
+];
+const state = { photos: {}, history: [], signatureDirty: false, db: null };
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const statusText = value => value === 'nao' ? 'NÃO CONFORME' : value === 'sim' ? 'CONFORME' : value === 'vazamento' ? 'COM VAZAMENTO — NÃO CONFORME' : value === 'sem_vazamento' ? 'SEM VAZAMENTO — CONFORME' : 'PENDENTE';
+const isBad = value => value === 'nao' || value === 'vazamento';
+function makeChecklist(){
+  $('checklist').innerHTML = CHECKS.map((item,index)=>{
+    const options = item.special === 'leaks'
+      ? '<option value="">Selecione...</option><option value="sem_vazamento">Sem vazamento — Conforme</option><option value="vazamento">Com vazamento — Não conforme</option>'
+      : '<option value="">Selecione...</option><option value="sim">Conforme</option><option value="nao">Não conforme</option>';
+    return `<article class="check-item" id="card-${item.id}" data-item-id="${item.id}">
+      <div class="item-title"><span class="item-num">${String(index+1).padStart(2,'0')}.</span><div><strong>${esc(item.label)}</strong>${item.hint?`<div class="item-sub">${esc(item.hint)}</div>`:''}</div></div>
+      <div class="status-row"><div><label for="status-${item.id}">Condição</label><select class="status-select" id="status-${item.id}" data-status-id="${item.id}" aria-label="Condição: ${esc(item.label)}">${options}</select></div><div class="item-sub" id="status-note-${item.id}" style="align-self:center;margin:0">Aguardando verificação</div></div>
+      <div id="alert-${item.id}" class="risk-alert hidden" role="alert"><div class="risk-label">⛔ RISCO GRAVE E IMINENTE</div><div class="risk-copy">Item não conforme. Interrompa/evite a operação caso a condição represente risco; comunique o responsável e siga o procedimento de segurança.</div></div>
+      <div id="photo-${item.id}" class="photo-area hidden"><label for="image-${item.id}">📷 Foto da não conformidade</label><input type="file" id="image-${item.id}" accept="image/*" capture="environment" data-photo-id="${item.id}"><div class="photo-note">Anexe uma foto nítida para documentar a condição encontrada. A imagem será incluída no relatório PDF e no histórico.</div><div id="preview-${item.id}" class="preview hidden"></div></div>
+    </article>`;
+  }).join('');
+  document.querySelectorAll('[data-status-id]').forEach(el=>el.addEventListener('change',()=>handleStatus(el.dataset.statusId,el.value)));
+  document.querySelectorAll('[data-photo-id]').forEach(el=>el.addEventListener('change',()=>handlePhoto(el.dataset.photoId,el.files && el.files[0])));
+  updateSummary();
+}
+function handleStatus(id,value){
+  const item=CHECKS.find(i=>i.id===id); const bad=isBad(value);
+  const card=$('card-'+id); card.classList.toggle('nonconform',bad);
+  const select=$('status-'+id); select.classList.toggle('conforme',value==='sim'||value==='sem_vazamento'); select.classList.toggle('nao-conforme',bad);
+  $('status-note-'+id).textContent = value ? statusText(value) : 'Aguardando verificação';
+  $('status-note-'+id).style.color=bad?'#b42318':(value?'#1d6b43':'#647484');
+  $('alert-'+id).classList.toggle('hidden',!bad);
+  $('photo-'+id).classList.toggle('hidden',!bad);
+  // Retém a foto caso o item seja alternado temporariamente; o relatório só a associa ao item se preenchido.
+  updateSummary();
+}
+async function fileToCompressedDataURL(file){
+  if(!file || !file.type.startsWith('image/')) throw new Error('Selecione um arquivo de imagem válido.');
+  if(file.size > 20*1024*1024) throw new Error('A imagem original excede 20 MB. Escolha uma imagem menor.');
+  const raw=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(new Error('Não foi possível ler a imagem.'));r.readAsDataURL(file)});
+  const img=await new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('Formato de imagem não reconhecido.'));image.src=raw});
+  const max=1200,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+  const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+  const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  return canvas.toDataURL('image/jpeg',0.70);
+}
+async function handlePhoto(id,file){
+  if(!file)return;
+  const preview=$('preview-'+id); preview.classList.remove('hidden'); preview.textContent='Preparando imagem...';
+  try{const data=await fileToCompressedDataURL(file);state.photos[id]=data;preview.innerHTML=`<img alt="Foto anexada para ${esc(CHECKS.find(i=>i.id===id).label)}" src="${data}"><button type="button" class="clear-photo" data-clear-photo="${id}">Remover foto</button>`;preview.querySelector('button').addEventListener('click',()=>{delete state.photos[id];$('image-'+id).value='';preview.innerHTML='';preview.classList.add('hidden')});showMessage('Imagem anexada e otimizada para o relatório.','success');}
+  catch(e){preview.textContent='';preview.classList.add('hidden');$('image-'+id).value='';showMessage(e.message||'Falha ao anexar imagem.','error')}
+}
+function updateSummary(){
+  let checked=0,good=0,bad=0;for(const item of CHECKS){const v=$('status-'+item.id)?.value||'';if(v)checked++;if(v==='sim'||v==='sem_vazamento')good++;if(isBad(v))bad++;}
+  $('countChecked').textContent=`${checked} / ${CHECKS.length}`;$('countConform').textContent=good;$('countNonconform').textContent=bad;$('overallRisk').classList.toggle('hidden',bad===0);
+}
+function showMessage(text,type='info'){const el=$('formMessage');el.className='message show '+type;el.textContent=text;}
+function clearMessage(){const el=$('formMessage');el.className='message';el.textContent='';}
+function signatureCanvasSetup(){
+  const canvas=$('signatureCanvas'),ctx=canvas.getContext('2d');let drawing=false;
+  function resize(preserve=true){let previous=null;try{if(preserve&&state.signatureDirty)previous=canvas.toDataURL('image/png')}catch(_){}const rect=canvas.getBoundingClientRect(),dpr=Math.max(1,window.devicePixelRatio||1);canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(180*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineWidth=2.2;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#172b3b';ctx.fillStyle='#fff';ctx.fillRect(0,0,rect.width,180);if(previous){const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,rect.width,180);img.src=previous}}
+  function pos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+  canvas.addEventListener('pointerdown',e=>{drawing=true;canvas.setPointerCapture?.(e.pointerId);const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+.1,p.y+.1);ctx.stroke();state.signatureDirty=true;e.preventDefault()});
+  canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();state.signatureDirty=true;e.preventDefault()});
+  const end=()=>{drawing=false;ctx.closePath()};canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',end);
+  $('clearSignature').addEventListener('click',()=>{state.signatureDirty=false;resize(false)});window.addEventListener('resize',()=>resize(true));resize(false);
+}
+function readCurrentRecord(){
+  const items=CHECKS.map(item=>({id:item.id,label:item.label,status:$('status-'+item.id).value||'',statusLabel:statusText($('status-'+item.id).value||''),bad:isBad($('status-'+item.id).value||''),photo:(isBad($('status-'+item.id).value||'')?state.photos[item.id]||null:null)}));
+  const canvas=$('signatureCanvas');let signature=null;if(state.signatureDirty){try{signature=canvas.toDataURL('image/png')}catch(_){}}
+  return {id:null,savedAt:null,operator:$('operator').value.trim(),contact:$('contact').value.trim(),machineType:$('machineType').value.trim(),machineId:$('machineId').value.trim(),date:$('inspectionDate').value,time:$('inspectionTime').value,location:$('location').value.trim(),guidance:$('technicalGuidance').value.trim(),signature,items,inspected:items.filter(i=>i.status).length,conform:items.filter(i=>i.status==='sim'||i.status==='sem_vazamento').length,nonconform:items.filter(i=>i.bad).length};
+}
+function validateRecord({forPdf=false}={}){
+  const required=[['operator','Nome do operador'],['machineType','Tipo de máquina'],['inspectionDate','Data'],['inspectionTime','Hora'],['location','Local']];
+  for(const [id,label] of required){if(!$(id).value.trim()){ $(id).focus();showMessage(`Preencha o campo obrigatório: ${label}.`,'error');return false}}
+  const missing=CHECKS.filter(item=>!$('status-'+item.id).value);
+  if(missing.length){const first=missing[0];$('status-'+first.id).focus();showMessage(`Ainda há ${missing.length} item(ns) sem avaliação. Complete todos os itens do checklist antes de ${forPdf?'gerar o PDF':'salvar o histórico'}.`,'error');$('card-'+first.id).scrollIntoView({behavior:'smooth',block:'center'});return false}
+  return true;
+}
+function localDateTimeDefaults(){const now=new Date();const localDate=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);$('inspectionDate').value=localDate;$('inspectionTime').value=now.toTimeString().slice(0,5)}
+function recordTableRows(record){return record.items.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.label)}</td><td class="print-status ${it.bad?'bad':(it.status?'good':'')}">${esc(it.statusLabel||statusText(it.status))}</td><td>${it.bad?'<span class="print-risk">RISCO GRAVE E IMINENTE — ALERTA</span>':'—'}${it.photo?`<br><img class="print-photo" src="${it.photo}" alt="Foto: ${esc(it.label)}">`:''}</td></tr>`).join('')}
+function renderPrintable(record){
+  const badCount=record.items.filter(i=>i.bad||isBad(i.status)).length;
+  const list=record.items.map(i=>({...i,bad:i.bad||isBad(i.status),statusLabel:i.statusLabel||statusText(i.status)}));
+  $('printReport').innerHTML=`<div class="print-header"><h1>Checklist Diário de Inspeção — Máquinas e Equipamentos</h1><p>Inspeção antes do início da operação · Registro ${esc(record.id||'não salvo')} · Gerado em ${esc(new Date().toLocaleString('pt-BR'))}</p></div>
+    ${badCount?'<div class="print-warning">⚠ RISCO GRAVE E IMINENTE — FORAM REGISTRADOS ITENS NÃO CONFORMES. Avalie, sinalize e aplique os procedimentos de segurança antes de liberar o equipamento.</div>':''}
+    <section class="print-section"><h2>Identificação da inspeção</h2><div class="print-meta">
+      <div><strong>Nome do operador</strong>${esc(record.operator||'—')}</div><div><strong>Contato do operador</strong>${esc(record.contact||'—')}</div><div><strong>Tipo de máquina</strong>${esc(record.machineType||'—')}</div>
+      <div><strong>Identificação / patrimônio</strong>${esc(record.machineId||'—')}</div><div><strong>Data</strong>${esc(record.date?formatDate(record.date):'—')}</div><div><strong>Hora</strong>${esc(record.time||'—')}</div><div><strong>Local</strong>${esc(record.location||'—')}</div><div><strong>Itens conformes</strong>${list.filter(i=>i.status==='sim'||i.status==='sem_vazamento').length}</div><div><strong>Itens não conformes</strong>${badCount}</div>
+    </div></section>
+    <section class="print-section"><h2>Verificação antes da operação</h2><table class="print-table"><thead><tr><th style="width:5%">Nº</th><th style="width:31%">Item verificado</th><th style="width:22%">Condição</th><th>Alerta e evidência fotográfica</th></tr></thead><tbody>${list.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.label)}</td><td class="print-status ${it.bad?'bad':(it.status?'good':'')}">${esc(it.statusLabel)}</td><td>${it.bad?'<span class="print-risk">RISCO GRAVE E IMINENTE — ALERTA DE SEGURANÇA</span>':''}${it.photo?`<img class="print-photo" src="${it.photo}" alt="Evidência fotográfica">`:it.bad?'<div class="print-small">Nenhuma foto anexada neste item.</div>':'—'}</td></tr>`).join('')}</tbody></table></section>
+    <section class="print-section"><h2>Orientação técnica / observações / providências</h2><div class="print-guidance">${esc(record.guidance||'Nenhuma observação registrada.')}</div></section>
+    <section class="print-section"><h2>Assinatura manual</h2>${record.signature?`<img class="print-signature" src="${record.signature}" alt="Assinatura">`:'<div style="height:58px"></div>'}<div class="print-sign-line">Assinatura do operador / responsável pela inspeção</div></section>
+    <div class="print-foot">Formulário de apoio operacional. Não substitui o manual do fabricante, a avaliação técnica, os procedimentos internos ou a verificação integral dos requisitos aplicáveis da NR-12.</div>`;
+}
+function formatDate(value){if(!value)return '—';const m=String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[3]}/${m[2]}/${m[1]}`:value}
+function printRecord(record){renderPrintable(record);setTimeout(()=>window.print(),180)}
+function openDb(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window)){reject(new Error('Este navegador não oferece armazenamento local compatível.'));return}const req=indexedDB.open('ChecklistDiarioMaquinasNR12',1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains('inspections'))db.createObjectStore('inspections',{keyPath:'id'})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('Não foi possível abrir o banco local.'))})}
+function dbRequest(mode,action){return new Promise((resolve,reject)=>{const tx=state.db.transaction('inspections',mode);const store=tx.objectStore('inspections');let req;try{req=action(store)}catch(e){reject(e);return}tx.oncomplete=()=>resolve(req?.result);tx.onerror=()=>reject(tx.error||req?.error||new Error('Erro no armazenamento local.'));tx.onabort=()=>reject(tx.error||new Error('Operação cancelada.'))})}
+async function loadHistory(){try{const all=await dbRequest('readonly',s=>s.getAll());state.history=(all||[]).sort((a,b)=>(b.savedAt||'').localeCompare(a.savedAt||''));renderHistory()}catch(e){$('historyList').innerHTML='<div class="history-empty">Não foi possível carregar o histórico local. Verifique as permissões de armazenamento do navegador.</div>'}}
+function renderHistory(){
+  if(!state.history.length){$('historyList').innerHTML='<div class="history-empty">Ainda não há inspeções salvas neste navegador.</div>';return}
+  $('historyList').innerHTML=state.history.map(r=>{const bad=(r.items||[]).filter(i=>i.bad||isBad(i.status)).length;const good=(r.items||[]).filter(i=>i.status==='sim'||i.status==='sem_vazamento').length;const dateTime=[formatDate(r.date),r.time||''].filter(Boolean).join(' · ');return `<article class="history-card"><div class="history-main"><strong>${esc(r.machineType||'Máquina não identificada')} ${r.machineId?`— ${esc(r.machineId)}`:''}</strong><p>${esc(r.operator||'Operador não informado')} · ${esc(r.location||'Local não informado')}<br>${esc(dateTime)} · Salvo em ${esc(r.savedAt?new Date(r.savedAt).toLocaleString('pt-BR'):'data indisponível')}</p><div class="history-stats"><span class="pill green">${good} conforme</span><span class="pill ${bad?'red':''}">${bad} não conforme</span><span class="pill">${(r.items||[]).filter(i=>i.status).length}/22 verificados</span></div></div><div class="history-actions"><button class="btn btn-pdf btn-small" type="button" data-print-id="${esc(r.id)}">PDF / Imprimir</button><button class="btn btn-danger btn-small" type="button" data-delete-id="${esc(r.id)}">Excluir</button></div></article>`}).join('');
+  document.querySelectorAll('[data-print-id]').forEach(btn=>btn.addEventListener('click',()=>{const r=state.history.find(x=>x.id===btn.dataset.printId);if(r)printRecord(r)}));
+  document.querySelectorAll('[data-delete-id]').forEach(btn=>btn.addEventListener('click',async()=>{const id=btn.dataset.deleteId;if(!confirm('Excluir esta inspeção do histórico? Esta ação não pode ser desfeita.'))return;try{await dbRequest('readwrite',s=>s.delete(id));await loadHistory();showMessage('Registro excluído do histórico.','success')}catch(e){showMessage('Não foi possível excluir o registro.','error')}}));
+}
+function createId(){return (crypto?.randomUUID?crypto.randomUUID():('inspecao-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)))}
+async function saveCurrent(){clearMessage();if(!validateRecord())return;const record=readCurrentRecord();record.id=createId();record.savedAt=new Date().toISOString();try{await dbRequest('readwrite',s=>s.put(record));await loadHistory();showMessage('Inspeção salva no histórico deste navegador. Você pode gerar o PDF agora ou imprimir esse registro pela lista do histórico.','success');}catch(e){showMessage('Não foi possível salvar. O armazenamento do navegador pode estar bloqueado ou sem espaço disponível. Exporte o relatório em PDF e tente novamente. Detalhe: '+(e.message||'erro local'),'error')}}
+function blankInspection(){if(!confirm('Iniciar uma nova inspeção? Os dados não salvos do formulário serão apagados.'))return;['operator','contact','machineType','machineId','location','technicalGuidance'].forEach(id=>$(id).value='');localDateTimeDefaults();for(const item of CHECKS){$('status-'+item.id).value='';handleStatus(item.id,'');$('image-'+item.id).value='';$('preview-'+item.id).innerHTML='';$('preview-'+item.id).classList.add('hidden')}state.photos={};state.signatureDirty=false;const c=$('signatureCanvas'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);clearMessage();updateSummary();window.scrollTo({top:0,behavior:'smooth'})}
+function init(){makeChecklist();signatureCanvasSetup();localDateTimeDefaults();$('saveRecord').addEventListener('click',saveCurrent);$('makePdf').addEventListener('click',()=>{clearMessage();if(!validateRecord({forPdf:true}))return;const record=readCurrentRecord();record.id='não salvo';record.savedAt=new Date().toISOString();printRecord(record)});$('newInspection').addEventListener('click',blankInspection);$('deleteAllHistory').addEventListener('click',async()=>{if(!state.history.length){showMessage('O histórico já está vazio.','info');return}if(!confirm(`Excluir as ${state.history.length} inspeção(ões) salvas neste navegador? Esta ação não pode ser desfeita.`))return;try{await dbRequest('readwrite',s=>s.clear());await loadHistory();showMessage('Todo o histórico foi excluído.','success')}catch(e){showMessage('Não foi possível excluir todo o histórico.','error')}});openDb().then(db=>{state.db=db;return loadHistory()}).catch(()=>{$('historyList').innerHTML='<div class="history-empty">O armazenamento local não está disponível. Abra este arquivo em um navegador compatível e habilite o armazenamento do site para salvar o histórico.</div>'})}
+init();
+</script>
+</body>
+</html>
